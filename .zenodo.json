@@ -1,0 +1,38 @@
+{
+  "upload_type": "software",
+  "title": "hatpi_neo_2026ed138: analysis code for \"HATPI Detection of 2026 ED138\"",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "<p>Analysis code for the Research Note of the AAS \"HATPI Detection of 2026 ED138\". Given a JPL Horizons ephemeris and a list of HATPI difference images (with kernels, photometric references, WCS references and zero points), it measures the trans-Neptunian object 2026 ED138 by (1) light-curve-based stacking: forced fiphot aperture photometry at the predicted position in every image, corrected for static subtraction residuals, combined per observing season; and (2) image-based stacking: residual-corrected cutouts shifted onto the predicted position and stacked per season. Significances and magnitude uncertainties come from 20 control positions moving with the target. The code produces the per-season photometry table and the figure of the Note. The repository contains the Python package (hatpi_neo/), a command-line driver (run_analysis.py), the Horizons ephemeris and the list of the 1498 HATPI stacked difference images used (examples/2026ED138/), and a README describing all files, formats, column units and data sources. The HATPI images themselves are not included. Requires Python 3 (numpy, scipy, astropy, matplotlib) and fiphot (fitsh/HATpipe, version 0.9zc or later).</p>",
+  "keywords": [
+    "HATPI",
+    "trans-Neptunian objects",
+    "2026 ED138",
+    "shift-and-stack",
+    "difference imaging",
+    "photometry"
+  ],
+  "creators": [
+    {"name": "Hartman, Joel D.", "orcid": "0000-0001-8732-6166",
+     "affiliation": "Department of Astrophysical Sciences, Princeton University"},
+    {"name": "Bakos, Gáspár Á.", "orcid": "0000-0001-7204-6727",
+     "affiliation": "Department of Astrophysical Sciences, Princeton University"},
+    {"name": "Jordán, Andrés", "orcid": "0000-0002-5389-3944",
+     "affiliation": "Universidad Adolfo Ibáñez; Universidad de Chile; Obstech/El Sauce Observatory"},
+    {"name": "Thiele, Sarah", "orcid": "0000-0001-7442-6926",
+     "affiliation": "Department of Astrophysical Sciences, Princeton University"},
+    {"name": "Csubry, Zoltán", "orcid": "0000-0002-8423-0510",
+     "affiliation": "Department of Astrophysical Sciences, Princeton University"},
+    {"name": "Bódi, Attila", "orcid": "0000-0002-8585-4544",
+     "affiliation": "Department of Astrophysical Sciences, Princeton University"},
+    {"name": "Sha, Lizhou", "orcid": "0000-0001-5401-8079",
+     "affiliation": "Department of Astrophysical Sciences, Princeton University"},
+    {"name": "Talens, Geert Jan", "orcid": "0000-0003-4787-2335",
+     "affiliation": "Department of Physics, University of Oxford"},
+    {"name": "Keyes, Anthony", "orcid": "0009-0007-3707-4846",
+     "affiliation": "Department of Astrophysical Sciences, Princeton University"},
+    {"name": "Thibault, Antoine", "orcid": "0009-0004-3477-9064",
+     "affiliation": "Observatoire astronomique de l'Université de Genève"}
+  ],
+  "communities": [{"identifier": "aas"}]
+}

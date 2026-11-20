@@ -1,0 +1,54 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below, together with the Research Note."
+type: software
+title: "hatpi_neo_2026ed138: analysis code for \"HATPI Detection of 2026 ED138\""
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/joeldhartman/hatpi_neo_2026ed138"
+keywords:
+  - HATPI
+  - trans-Neptunian objects
+  - shift-and-stack
+  - difference imaging
+  - photometry
+authors:
+  - family-names: Hartman
+    given-names: Joel D.
+    orcid: "https://orcid.org/0000-0001-8732-6166"
+    affiliation: "Department of Astrophysical Sciences, Princeton University, NJ 08544, USA"
+  - family-names: Bakos
+    given-names: Gáspár Á.
+    orcid: "https://orcid.org/0000-0001-7204-6727"
+    affiliation: "Department of Astrophysical Sciences, Princeton University, NJ 08544, USA"
+  - family-names: Jordán
+    given-names: Andrés
+    orcid: "https://orcid.org/0000-0002-5389-3944"
+    affiliation: "Facultad de Ingeniería y Ciencias, Universidad Adolfo Ibáñez, Santiago, Chile; Departamento de Astronomía, Universidad de Chile, Santiago, Chile; Obstech/El Sauce Observatory, Coquimbo, Chile"
+  - family-names: Thiele
+    given-names: Sarah
+    orcid: "https://orcid.org/0000-0001-7442-6926"
+    affiliation: "Department of Astrophysical Sciences, Princeton University, NJ 08544, USA"
+  - family-names: Csubry
+    given-names: Zoltán
+    orcid: "https://orcid.org/0000-0002-8423-0510"
+    affiliation: "Department of Astrophysical Sciences, Princeton University, NJ 08544, USA"
+  - family-names: Bódi
+    given-names: Attila
+    orcid: "https://orcid.org/0000-0002-8585-4544"
+    affiliation: "Department of Astrophysical Sciences, Princeton University, NJ 08544, USA"
+  - family-names: Sha
+    given-names: Lizhou
+    orcid: "https://orcid.org/0000-0001-5401-8079"
+    affiliation: "Department of Astrophysical Sciences, Princeton University, NJ 08544, USA"
+  - family-names: Talens
+    given-names: Geert Jan
+    orcid: "https://orcid.org/0000-0003-4787-2335"
+    affiliation: "Denys Wilkinson Building, Department of Physics, University of Oxford, OX1 3RH, UK"
+  - family-names: Keyes
+    given-names: Anthony
+    orcid: "https://orcid.org/0009-0007-3707-4846"
+    affiliation: "Department of Astrophysical Sciences, Princeton University, NJ 08544, USA"
+  - family-names: Thibault
+    given-names: Antoine
+    orcid: "https://orcid.org/0009-0004-3477-9064"
+    affiliation: "Observatoire astronomique de l'Université de Genève, Chemin Pegasi 51, CH-1290 Versoix, Switzerland"

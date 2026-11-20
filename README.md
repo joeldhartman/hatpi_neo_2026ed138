@@ -1,7 +1,10 @@
 # hatpi_neo: HATPI shift-and-stack photometry of 2026 ED138
 
 This is the analysis code for the HATPI recovery of the trans-Neptunian object
-2026 ED138, as described in the accompanying RNAAS note. It takes two inputs:
+2026 ED138, described in the Research Note of the AAS *"HATPI Detection of
+2026 ED138"* (Hartman et al. 2026). Running it on the images listed in
+`examples/2026ED138/` produces the per-season photometry quoted in the Note
+and its figure. It takes two inputs:
 
 - a JPL Horizons ephemeris;
 - a list of HATPI difference images.
@@ -18,11 +21,31 @@ It then measures the object's brightness in two ways:
 For both methods, the significance and the magnitude uncertainties come from
 20 control positions that move with the target.
 
+## Contents
+
+| file | format | contents |
+|---|---|---|
+| `README.md` | Markdown | this description |
+| `LICENSE` | text | MIT license |
+| `CITATION.cff`, `.zenodo.json` | YAML, JSON | citation and archive metadata |
+| `requirements.txt` | text | Python package requirements |
+| `run_analysis.py` | Python 3 | command-line driver |
+| `hatpi_neo/inputs.py` | Python 3 | reading the Horizons file and image list; target pixel positions |
+| `hatpi_neo/lcphot.py` | Python 3 | Light Curve-based method: fiphot forced photometry, residual correction |
+| `hatpi_neo/imstack.py` | Python 3 | Image-based method: residual images, shifted cutouts, stacking, aperture photometry |
+| `hatpi_neo/combine.py` | Python 3 | seasons, weighted means, control-position statistics, magnitudes |
+| `hatpi_neo/figure.py` | Python 3 | the figure of the Note |
+| `hatpi_neo/pipeline.py` | Python 3 | `run_analysis()`, which runs all steps and writes the outputs |
+| `examples/2026ED138/horizons_results_2026ED138.txt` | text | JPL Horizons ephemeris used in the Note (see Data sources) |
+| `examples/2026ED138/stack_metadata.txt` | text table | the 1498 HATPI images used in the Note (columns below) |
+
+The HATPI images themselves are not part of this repository.
+
 ## Requirements
 
 - Python ≥ 3.9 with numpy, scipy, astropy and matplotlib (`requirements.txt`).
   The note used numpy 1.21, scipy 1.7, astropy 5.0 and matplotlib 3.5.
-- **fiphot** from the fitsh / HATpipe package. It must
+- **fiphot** from the fitsh / HATpipe package, version 0.9zc or later. It must
   support `--fluxerr-bg-only` and `--bgsigma-mad-correct`; the code checks this
   at start-up.
 - `funpack` (optional): used to decompress fpack (`.fz`) images for fiphot. If
@@ -94,12 +117,22 @@ they come from the HATPI reduction:
 
 The colour coefficient is about 0.11 mag/mag.
 
-`examples/2026ED138/stack_metadata.txt` lists, for each of the 1498 images used
-in the note:
+### `examples/2026ED138/stack_metadata.txt`
 
-- the JD, camera, field and reference date;
-- the zero point;
-- the image, kernel and WCS file names.
+Whitespace-separated, one row per image used in the Note (1498 rows). Each image
+is a 3060 s mean-combined stack of 30 s or 45 s HATPI difference images.
+
+| column | units | meaning |
+|---|---|---|
+| `jd` | days | mid-exposure Julian Date (UTC) |
+| `camera` | — | HATPI camera (IHU) number |
+| `field` | — | HATPI field name |
+| `reference` | YYYYMMDD | date of the photometric/astrometric reference the image was subtracted against |
+| `zp` | mag | zero point: G = zp − 2.5 log10(flux / ADU) |
+| `image`, `kernel`, `wcsref` | — | file names (no paths) of the difference image, its kernel and the WCS reference |
+
+To run the code, turn it into an image list (see above) with full paths to
+your copies of these files.
 
 ## Method details
 
@@ -154,13 +187,44 @@ in the note:
 | `run_log.txt` | log |
 | `work/` | cached photometry and cutouts; delete it to recompute |
 
+Output columns and units:
+
+- **`lightcurve.txt`**, one row per image:
+  - `JD` (days, UTC); `camera`, `field`, `image`.
+  - `X`, `Y`: target position (pixels, fitsh/1-based convention).
+  - `RA`, `Dec`: target position (degrees, ICRF).
+  - `ZP` (mag).
+  - `flux_raw`, `eflux_raw`, `flux_corr`, `eflux_corr`, `eflux_emp`: ADU of that
+    image. `eflux_emp` is the scatter of the residual estimate.
+  - `nres`: number of images in the residual estimate.
+- **`lightcurve_controls.txt`**: `image_index` (0-based row of
+  `lightcurve.txt`), `JD`, `control` (1–20), `dx`, `dy` (pixels from the
+  target), then the same columns as `lightcurve.txt`.
+- **`seasonal_photometry.txt`**: method; season; JD range (days); number of
+  images; flux, control mean and control rms (ADU at ZPref); significance (σ);
+  G and its errors (mag); mean Horizons V (mag).
+- **`stack_<season>.fits`**: pixel values in ADU at ZPref, 81×81 pixels
+  (≈20″ per pixel), with the target at the centre of pixel (41, 41) (1-based).
+  `ERR` is the formal error in the same units; `NUSED` is the number of images
+  per pixel (integer).
+
 Runtime for 1498 images on 8 cores is about 30 minutes.
+
+## Data sources
+
+- **HATPI**: images from the HATPI facility at Las Campanas Observatory
+  (Bakos et al. 2026, submitted to PASP), reduced with the HATPI pipeline.
+- **Ephemeris**: JPL Horizons (Giorgini et al. 1996), orbit solution JPL#2
+  (2026 Oct 29), DE441, observer site Las Campanas; retrieved 2026 Nov 9.
+- **Zero points**: calibrated against Gaia DR2 G (Gaia Collaboration et al.
+  2016, 2018).
 
 ## Citation
 
-If you use this code, please cite the RNAAS note (Hartman et al., 2026) and
-the HATPI instrument paper (Bakos et al., submitted to PASP).
+If you use this code, please cite this archive (Zenodo DOI), the Research Note
+"HATPI Detection of 2026 ED138" (Hartman et al. 2026), and the HATPI instrument
+paper (Bakos et al. 2026, submitted to PASP).
 
-## Generative AI Usage
+## License
 
-The code in this repository was developed using Claude Code together with the Claude Opus 5.5 model.
+MIT (see `LICENSE`).
